@@ -1,47 +1,53 @@
 package com.rumaxi.gameskel;
 
 import android.graphics.Canvas;
-import android.util.Log;
 import java.util.ArrayList;
 import java.util.Stack;
 
 public class Scene {
-    Canvas canvas;
+private ArrayList<Actor> actorList       = new ArrayList();
+private ArrayList<Actor> movableList     = new ArrayList();
+private ArrayList<Actor> collidableList  = new ArrayList();
+private ArrayList<Actor> drawableList    = new ArrayList();
+private Stack<IDrawer>    postrenderList  = new Stack();
+private Stack<IDrawer>    prerenderList   = new Stack();
+private ArrayList<Actor>  delList = new ArrayList<Actor>();
+private ArrayList<Actor>  addList = new ArrayList<Actor>();
+private Position objPosition;
+private Position subjPosition;
+private Dimensions objDimensions;
+private Dimensions subjDimensions;
+private int tw,th,rw,rh,tx,ty,rx,ry;
+private boolean collide;
+ 
+  
     
-    private ArrayList<Actor> actorList       = new ArrayList();
-    private ArrayList<Actor> movableList     = new ArrayList();
-    private ArrayList<Actor> collidableList  = new ArrayList();
-    private ArrayList<Actor> drawableList    = new ArrayList();
-    private Stack<IDrawer>    postrenderList  = new Stack();
-    private Stack<IDrawer>    prerenderList   = new Stack();
-    private ArrayList<Actor>  delList = new ArrayList<Actor>();
-    private ArrayList<Actor>  addList = new ArrayList<Actor>();
-    private Position objPosition;
-    private Position subjPosition;
-    private Dimensions objDimensions;
-    private Dimensions subjDimensions;
-    private int tw,th,rw,rh,tx,ty,rx,ry;
-    private boolean collide;
+void addPrerender (IDrawer drawer) {
+        prerenderList.add(drawer);
+    }
+
+void addPostrender (IDrawer drawer) {
+        postrenderList.add(drawer);
+    }
     
-    void render() {
+public void delActor(Actor actor) {
+        delList.add(actor);
+    }
+    
+public void addActor(Actor actor) {
+        addList.add(actor);
+    }
+   
+void tick (Canvas canvas) {
         for (Actor actor : movableList) { actor.move(); }
         for (IDrawer drawer : prerenderList) { drawer.draw(canvas); }
         for (Actor actor : drawableList) { actor.draw(canvas); }
         for (IDrawer drawer : postrenderList) { drawer.draw(canvas); }
         collideObjects();
         updateObjects();
-    }
+    }  
     
-    
-    public void delActor(Actor actor) {
-        delList.add(actor);
-    }
-    
-    public void addActor(Actor actor) {
-        addList.add(actor);
-    }
-    
-    private void updateObjects() {
+private void updateObjects() {
         for (Actor actor: delList) {
             actorList.remove(actor);
             if (actor.isMovable()) { movableList.remove(actor); }
@@ -59,7 +65,7 @@ public class Scene {
         addList.clear();
     }
     
-    private void collideObjects() {
+private void collideObjects() {
         for (Actor object: collidableList) {
             objPosition = object.getPosition();
             objDimensions = object.getActorDimensions();
@@ -91,23 +97,8 @@ public class Scene {
         
         
     };
-    
-            
-    
-    void addPrerender (IDrawer drawer) {
-        prerenderList.add(drawer);
-    }
-
-    void addPostrender (IDrawer drawer) {
-        postrenderList.add(drawer);
-    }
-    
-    void tick (Canvas canvas) {
-        this.canvas = canvas;
-        render();
-    }
-
-    int objectCount() {
+ 
+int objectCount() {
         return actorList.size();
     }
             
