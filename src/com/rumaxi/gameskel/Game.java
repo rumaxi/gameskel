@@ -21,15 +21,27 @@ public class Game extends AbstractGame implements Runnable {
         this.core = new Core (res);
         scene = new Scene();
         scene.addPrerender(new ClearScreen());        
-        ISprite duckSprite = new AnimatedSprite(Sprites.getMario(),6,32);
+        
         ISprite bg = new StaticSprite (Sprites.getBackground());
         scene.addPrerender(new SceneBackground(bg));
+        
         Actor duck = new Actor();
+        
         IMover mover = new SimpleMover();
         duck.setMover(mover);
+        
+        ISprite duckSprite = new AnimatedSprite(Sprites.getMario(),6,32);
         IActorDrawer drawer = new SpriteDrawer(duckSprite,5);
         duck.setDrawer(drawer);
+        
+        duck.setType(ActorType.ACTOR_TEST);
+        
+        TestCollider collider = new TestCollider();
+        collider.setType(ActorType.ACTOR_TEST);
+        duck.addCollider(collider);
+        
         scene.addActor(duck);
+        
         scene.addPostrender(new ObjectCountIndicator(scene));
         core.setScene(scene);
         running = true;
@@ -48,6 +60,13 @@ public class Game extends AbstractGame implements Runnable {
         duck.setMover(mover);
         IActorDrawer drawer = new SpriteDrawer(duckSprite,5);
         duck.setDrawer(drawer);
+        
+        duck.setType(ActorType.ACTOR_TEST);
+        
+        TestCollider collider = new TestCollider();
+        collider.setType(ActorType.ACTOR_TEST);
+        duck.addCollider(collider);        
+        
         scene.addActor(duck);        
     }
 

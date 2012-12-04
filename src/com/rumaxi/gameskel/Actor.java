@@ -11,9 +11,10 @@ public class Actor {
     
     private IMover mover              = null;
     private IActorDrawer drawer       = null;
-    private Stack<ICollider> colliders = null;
+    private Stack<Collider> colliders = new Stack<Collider>();
     private Stack<IMutator>  mutators  = null;
     
+    private ActorType  type;
     private Position   position;
     private Dimensions actorDimensions;
     private Dimensions hitboxDimensions;
@@ -22,9 +23,9 @@ public class Actor {
         mover.move(this);
     }
     
-    public void collide(Collision collision) {
-        for (ICollider collider: colliders) {
-            collider.collide(collision);
+    public void collide(Actor subject) {
+        for (Collider collider: colliders) {
+            if (collider.check(subject)) { collider.collide(this,subject);} 
         }
     }
     
@@ -42,7 +43,8 @@ public class Actor {
         this.mover = mover;
     }
 
-    public void addCollider(ICollider collider) {
+    public void addCollider(Collider collider) {
+        collidable = true;
         colliders.add(collider);
     }
     
@@ -88,6 +90,14 @@ public class Actor {
         return mutable;
     }
 
+    public ActorType getType() {
+        return type;
+    }
+
+    public void setType(ActorType type) {
+        this.type = type;
+    }
+    
     
     Actor () {
         this.position = new Position (0,0);

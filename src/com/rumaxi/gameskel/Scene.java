@@ -16,11 +16,12 @@ public class Scene {
     private Stack<IDrawer>    prerenderList   = new Stack();
     private ArrayList<Actor>  delList = new ArrayList<Actor>();
     private ArrayList<Actor>  addList = new ArrayList<Actor>();
-    private ArrayList<Collision> collisions = new ArrayList<Collision>();
     private Position objPosition;
     private Position subjPosition;
     private Dimensions objDimensions;
     private Dimensions subjDimensions;
+    private int tw,th,rw,rh,tx,ty,rx,ry;
+    private boolean collide;
     
     void render() {
         for (Actor actor : movableList) { actor.move(); }
@@ -59,17 +60,31 @@ public class Scene {
     }
     
     private void collideObjects() {
-        collisions = new ArrayList<Collision>();
-        
         for (Actor object: collidableList) {
             for (Actor subject: collidableList) {
-                if (!object.equals(subject)) {
+                if (object != subject) {
                     objPosition = object.getPosition();
                     subjPosition = subject.getPosition();
                     objDimensions = object.getActorDimensions(); // !!!
                     subjDimensions = subject.getActorDimensions();
-                    //int tw = objDimensions.
-                    
+                    tw = objDimensions.getWidth();
+                    th = objDimensions.getHeight();
+                    rw = subjDimensions.getWidth();
+                    rh = subjDimensions.getHeight();
+                    tx = objPosition.getX();
+                    ty = objPosition.getY();       
+                    rx = subjPosition.getX();
+                    ry = subjPosition.getY();
+                    rw += rx;
+                    rh += ry;
+                    tw += tx;
+                    th += ty;                    
+                    collide = ((rw < rx || rw > tx) &&
+                               (rh < ry || rh > ty) &&
+                               (tw < tx || tw > rx) &&
+                               (th < ty || th > ry));
+                    if (collide) { object.collide(subject); } 
+                    Log.i("RUMA", String.valueOf(collide));
                 }
             }
         }
