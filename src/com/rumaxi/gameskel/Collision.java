@@ -22,10 +22,5 @@ public class Collision {
     public CollisionType getType() {
         return type;
     }
-
-
-    
-
-
 }
 enum CollisionType { COL_LEFT, COL_RIGHT, COL_TOP, COL_BOTTOM; }
