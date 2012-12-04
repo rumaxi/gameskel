@@ -16,9 +16,12 @@ public class Scene {
     private Stack<IDrawer>    prerenderList   = new Stack();
     private ArrayList<Actor>  delList = new ArrayList<Actor>();
     private ArrayList<Actor>  addList = new ArrayList<Actor>();
-    ArrayList<Collision> collisions = new ArrayList<Collision>();
-    Position objPosition  = new Position();
-    Position subjPosition = new Position();
+    private ArrayList<Collision> collisions = new ArrayList<Collision>();
+    private Position objPosition;
+    private Position subjPosition;
+    private Dimensions objDimensions;
+    private Dimensions subjDimensions;
+    
     void render() {
         for (Actor actor : movableList) { actor.move(); }
         for (IDrawer drawer : prerenderList) { drawer.draw(canvas); }
@@ -56,13 +59,16 @@ public class Scene {
     }
     
     private void collideObjects() {
-        ArrayList<Collision> collisions = new ArrayList<Collision>();
+        collisions = new ArrayList<Collision>();
         
         for (Actor object: collidableList) {
             for (Actor subject: collidableList) {
                 if (!object.equals(subject)) {
                     objPosition = object.getPosition();
                     subjPosition = subject.getPosition();
+                    objDimensions = object.getActorDimensions(); // !!!
+                    subjDimensions = subject.getActorDimensions();
+                    //int tw = objDimensions.
                     
                 }
             }

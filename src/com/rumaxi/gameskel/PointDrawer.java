@@ -8,7 +8,7 @@ public class PointDrawer implements IActorDrawer {
     Paint p;
     public void draw(Canvas canvas, Actor actor) {
         Position pos = actor.getPosition();
-        canvas.drawPoint(pos.x, pos.y, p);
+        canvas.drawPoint(pos.getX(), pos.getY(), p);
     }
     
     PointDrawer() {

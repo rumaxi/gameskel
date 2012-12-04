@@ -2,6 +2,7 @@ package com.rumaxi.gameskel;
 
 import android.util.Log;
 
+/* just a test class*/
 public class FreefallMover implements IMover {
     int fallTime;
     double g= 0.01;
@@ -12,8 +13,8 @@ public class FreefallMover implements IMover {
             Log.i("RUMA", actor.toString());
             Position pos = actor.getPosition();
             dy = g*fallTime;
-            int newX = pos.x+dx;
-            int newY = (int) ((int) pos.y+dy);
+            int newX = pos.getX()+dx;
+            int newY = (int) ((int) pos.getY()+dy);
             pos.setY(newY);
             pos.setX(newX);
             fallTime++;

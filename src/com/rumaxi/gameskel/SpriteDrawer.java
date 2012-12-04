@@ -12,6 +12,7 @@ public class SpriteDrawer implements IActorDrawer {
     private Bitmap bitmap;
     private int updateRate = -1;
     private int update;
+    private int x,y,w,h;
 
     SpriteDrawer(ISprite sprite) {
         this.sprite = sprite;
@@ -31,9 +32,11 @@ public class SpriteDrawer implements IActorDrawer {
             if (update == 0) {bitmap = sprite.getSprite(); update = updateRate; }
             update--; 
         }
-        if (dim == null) { dim = actor.getActorDimensions(); }
+        if (dim == null) { dim = actor.getActorDimensions(); w=dim.getWidth(); h=dim.getHeight(); }
         pos = actor.getPosition();
-        dst = new Rect(pos.x,pos.y,pos.x+dim.width,pos.y+dim.height);
+        x = pos.getX();
+        y = pos.getY();
+        dst = new Rect(x,y,x+w,y+h);
         canvas.drawBitmap(bitmap, null, dst, null);
     }
     
