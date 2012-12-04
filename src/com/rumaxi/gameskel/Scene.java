@@ -84,7 +84,6 @@ public class Scene {
                                (tw < tx || tw > rx) &&
                                (th < ty || th > ry));
                     if (collide) { object.collide(subject); } 
-                    Log.i("RUMA", String.valueOf(collide));
                 }
             }
         }
