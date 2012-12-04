@@ -61,18 +61,20 @@ public class Scene {
     
     private void collideObjects() {
         for (Actor object: collidableList) {
+            tw = objDimensions.getWidth();
+            th = objDimensions.getHeight();  
+            tx = objPosition.getX();
+            ty = objPosition.getY();   
             for (Actor subject: collidableList) {
                 if (object != subject) {
                     objPosition = object.getPosition();
                     subjPosition = subject.getPosition();
                     objDimensions = object.getActorDimensions(); // !!!
                     subjDimensions = subject.getActorDimensions();
-                    tw = objDimensions.getWidth();
-                    th = objDimensions.getHeight();
+
                     rw = subjDimensions.getWidth();
                     rh = subjDimensions.getHeight();
-                    tx = objPosition.getX();
-                    ty = objPosition.getY();       
+    
                     rx = subjPosition.getX();
                     ry = subjPosition.getY();
                     rw += rx;
