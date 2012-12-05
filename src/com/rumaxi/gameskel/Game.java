@@ -35,7 +35,7 @@ public class Game extends AbstractGame implements Runnable {
         IActorDrawer drawer = new SpriteDrawer(duckSprite,5);
         duck.setDrawer(drawer);
         
-        duck.setType(ActorType.ACTOR_TEST);
+        duck.type = ActorType.ACTOR_TEST;
         
         TestCollider collider = new TestCollider();
         collider.setType(ActorType.ACTOR_TEST);
@@ -64,7 +64,7 @@ public class Game extends AbstractGame implements Runnable {
         IActorDrawer drawer = new SpriteDrawer(duckSprite,5);
         duck.setDrawer(drawer);
         
-        duck.setType(ActorType.ACTOR_TEST);
+        duck.type = ActorType.ACTOR_TEST;
         
         TestCollider collider = new TestCollider();
         collider.setType(ActorType.ACTOR_TEST);

@@ -17,8 +17,7 @@ private Position objPosition;
 private Position subjPosition;
 private Dimensions objDimensions;
 private Dimensions subjDimensions;
-private int tw,th,rw,rh,tx,ty,rx,ry;
-private boolean collide;
+
  
   
     
@@ -50,16 +49,16 @@ void tick (Canvas canvas) {
 private void updateObjects() {
         for (Actor actor: delList) {
             actorList.remove(actor);
-            if (actor.isMovable()) { movableList.remove(actor); }
-            if (actor.isCollidable()) { collidableList.remove(actor); }
-            if (actor.isDrawable()) { drawableList.remove(actor); }             
+            if (actor.movable) { movableList.remove(actor); }
+            if (actor.collidable) { collidableList.remove(actor); }
+            if (actor.drawable) { drawableList.remove(actor); }             
         }
         
         for (Actor actor: addList) {
             actorList.add(actor);
-            if (actor.isMovable()) { movableList.add(actor);  }
-            if (actor.isCollidable()) { collidableList.add(actor); }
-            if (actor.isDrawable()) { drawableList.add(actor); }            
+            if (actor.movable) { movableList.add(actor);  }
+            if (actor.collidable) { collidableList.add(actor); }
+            if (actor.drawable) { drawableList.add(actor); }            
         }
         delList.clear();
         addList.clear();
@@ -67,25 +66,25 @@ private void updateObjects() {
     
 private void collideObjects() {
         for (Actor object: collidableList) {
-            objPosition = object.getPosition();
-            objDimensions = object.getActorDimensions();
-            tw = objDimensions.getWidth();
-            th = objDimensions.getHeight();  
-            tx = objPosition.getX();
-            ty = objPosition.getY();   
+            objPosition = object.position;
+            objDimensions = object.actorDimensions;
+            int tw = objDimensions.width;
+            int th = objDimensions.height;  
+            int tx = objPosition.x;
+            int ty = objPosition.y;   
             tw += tx;
             th += ty; 
             for (Actor subject: collidableList) {
                 if (object != subject) {
-                    subjPosition = subject.getPosition();
-                    subjDimensions = subject.getActorDimensions();
-                    rw = subjDimensions.getWidth();
-                    rh = subjDimensions.getHeight();
-                    rx = subjPosition.getX();
-                    ry = subjPosition.getY();
+                    subjPosition = subject.position;
+                    subjDimensions = subject.actorDimensions;
+                    int rw = subjDimensions.width;
+                    int rh = subjDimensions.height;
+                    int rx = subjPosition.x;
+                    int ry = subjPosition.y;
                     rw += rx;
                     rh += ry;
-                    collide = ((rw < rx || rw > tx) &&
+                    boolean collide = ((rw < rx || rw > tx) &&
                                (rh < ry || rh > ty) &&
                                (tw < tx || tw > rx) &&
                                (th < ty || th > ry));

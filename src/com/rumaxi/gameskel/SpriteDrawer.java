@@ -12,7 +12,7 @@ public class SpriteDrawer implements IActorDrawer {
     private Bitmap bitmap;
     private int updateRate = -1;
     private int update;
-    private int x,y,w,h;
+    private int w,h; // for static wh for object.  TODO //
 
     SpriteDrawer(ISprite sprite) {
         this.sprite = sprite;
@@ -28,27 +28,16 @@ public class SpriteDrawer implements IActorDrawer {
     }
     
     public void draw(Canvas canvas, Actor actor) {
+        int x,y; 
         if (updateRate != -1) { 
             if (update == 0) {bitmap = sprite.getSprite(); update = updateRate; }
             update--; 
         }
-        if (dim == null) { dim = actor.getActorDimensions(); w=dim.getWidth(); h=dim.getHeight(); }
-        pos = actor.getPosition();
-        x = pos.getX();
-        y = pos.getY();
+        if (dim == null) { dim = actor.actorDimensions; w=dim.width; h=dim.height; }
+        pos = actor.position;
+        x = pos.x;
+        y = pos.y;
         dst = new Rect(x,y,x+w,y+h);
         canvas.drawBitmap(bitmap, null, dst, null);
     }
-    
-    
-
-/*          I don't think we really need it   
-    SpriteDrawer (ISprite sprite, Actor actor) {
-        dim = actor.getActorDimensions();
-        pos = actor.getScreenPosition();
-        dst = new Rect(pos.x,pos.y,pos.x+dim.width,pos.y+dim.height);
-        this.sprite = sprite;
-    }
-*/
-    
 }

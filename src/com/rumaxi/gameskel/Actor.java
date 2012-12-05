@@ -4,20 +4,20 @@ import android.graphics.Canvas;
 import java.util.Stack;
 
 public class Actor {
-    private boolean movable;
-    private boolean drawable;
-    private boolean collidable;
-    private boolean mutable;
+    boolean movable;
+    boolean drawable;
+    boolean collidable;
+    boolean mutable;
     
-    private IMover mover              = null;
-    private IActorDrawer drawer       = null;
-    private Stack<Collider> colliders = new Stack<Collider>();
-    private Stack<IMutator>  mutators  = null;
+    IMover mover               = null;
+    IActorDrawer drawer        = null;
+    Stack<Collider> colliders  = new Stack<Collider>();
+    Stack<Mutator>  mutators   = new Stack<Mutator>();
     
-    private ActorType  type;
-    private Position   position;
-    private Dimensions actorDimensions;
-    private Dimensions hitboxDimensions;
+    ActorType  type;
+    Position   position;
+    Dimensions actorDimensions;
+    Dimensions hitboxDimensions;
     
     public void move() {
         mover.move(this);
@@ -47,57 +47,10 @@ public class Actor {
         collidable = true;
         colliders.add(collider);
     }
-    
-/*    public void addMutator (IMutator mutator) {
-        this.Mutable = true;
-        mutators.add(mutator);
-    } */
 
-    
-    public Dimensions getActorDimensions() {
-        return actorDimensions;
-    }
-
-    public Dimensions getHitboxDimensions() {
-        return hitboxDimensions;
-    }
-
-    public Position getPosition() {
-        return position;
-    }
-
-    public void setPosition(Position position) {
-        this.position = position;
-    }
-    
     public void setActorDimensions(Dimensions actorDimensions) {
         this.actorDimensions = actorDimensions;
     }    
-
-    public boolean isMovable() {
-        return movable;
-    }
-
-    public boolean isDrawable() {
-        return drawable;
-    }
-
-    public boolean isCollidable() {
-        return collidable;
-    }
-
-    public boolean isMutable() {
-        return mutable;
-    }
-
-    public ActorType getType() {
-        return type;
-    }
-
-    public void setType(ActorType type) {
-        this.type = type;
-    }
-    
     
     Actor () {
         this.position = new Position (0,0);

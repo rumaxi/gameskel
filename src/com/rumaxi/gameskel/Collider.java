@@ -6,7 +6,7 @@ public abstract class Collider {
     private ActorType type;
     
     public boolean check (Actor actor) {
-        return (actor.getType() == type);
+        return (actor.type == type);
     } 
 
     public void setType(ActorType type) {
