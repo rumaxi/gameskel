@@ -100,6 +100,7 @@ private void collideObjects() {
  
 int objectCount() {
         return actorList.size();
-    }
+}
+
             
 }

@@ -14,6 +14,7 @@ public class Game extends AbstractGame implements Runnable {
     private SurfaceHolder sh;
     private long startTime, runTime, waitTime, secPerFrame;
     private static Integer FPS = Settings.FPS; 
+    private int realFps;
     
     Game(GraphView gv) {
         Resources res = gv.getResources();
@@ -43,6 +44,8 @@ public class Game extends AbstractGame implements Runnable {
         scene.addActor(duck);
         
         scene.addPostrender(new ObjectCountIndicator(scene));
+        scene.addPostrender(new FPSIndicator(this));
+
         core.setScene(scene);
         running = true;
     }
@@ -72,12 +75,21 @@ public class Game extends AbstractGame implements Runnable {
 
     public void run() {
         Canvas canvas;
-        while (running) {
+        int frames = 0;
+        long sTime = System.currentTimeMillis();
+        while (running) { 
             startTime = System.currentTimeMillis();
+            
             canvas = sh.lockCanvas();
             tick(canvas);
+            frames++;
+
+            long currTime = System.currentTimeMillis();
+            long sTimeDiff = currTime -sTime;          
+            if (sTimeDiff >= 1000) { sTime = currTime; realFps = frames; frames = 0; }
             sh.unlockCanvasAndPost(canvas);        
-            runTime = System.currentTimeMillis() - startTime;
+            
+            runTime = currTime - startTime;
             waitTime = secPerFrame - runTime;
             if (waitTime > 0) {
                 try {
@@ -90,5 +102,9 @@ public class Game extends AbstractGame implements Runnable {
     }
 
 
+
+int getFps() {
+    return realFps;
+}    
 
 }

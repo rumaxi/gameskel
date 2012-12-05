@@ -112,9 +112,10 @@ public class Actor {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("x:").append(position.getX()).append(" y:").append(position.getY()).append("\n");
-        sb.append("w:").append(actorDimensions.getWidth()).append(" h:").append(actorDimensions.getHeight()).append("\n");
-        return sb.toString();
+      //  sb.append("x:").append(position.getX()).append(" y:").append(position.getY()).append("\n");
+      //  sb.append("w:").append(actorDimensions.getWidth()).append(" h:").append(actorDimensions.getHeight()).append("\n");
+        //return sb.toString();
+        return type.toString();
     }
     
     

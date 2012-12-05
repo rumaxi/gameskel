@@ -5,16 +5,16 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Typeface;
 
-public class ObjectCountIndicator implements IDrawer {
-    private Scene scene;
+public class FPSIndicator implements IDrawer {
+    private Game game;
     private Paint p;
     
     public void draw(Canvas canvas) {
-        canvas.drawText("objects: "+scene.objectCount(), 10, 25, p);
+        canvas.drawText("fps: "+game.getFps(), 10, 50, p);
     }
     
-    ObjectCountIndicator(Scene scene) {
-        this.scene = scene;
+    FPSIndicator(Game game) {
+        this.game = game;
         p = new Paint();
         p.setColor(Color.GREEN);       
         p.setTypeface(Typeface.MONOSPACE);
@@ -22,7 +22,6 @@ public class ObjectCountIndicator implements IDrawer {
         p.setSubpixelText(true);
         p.setFilterBitmap(true); 
         p.setTextSize(18);
-
     }
     
 }
