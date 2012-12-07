@@ -5,7 +5,7 @@ import android.graphics.Canvas;
 import android.graphics.Rect;
 
 public class SpriteDrawer implements IActorDrawer {
-    private Rect dst;
+    private Rect dst = new Rect();
     private Position pos;
     private Dimensions dim;
     private ISprite sprite;
@@ -37,7 +37,7 @@ public class SpriteDrawer implements IActorDrawer {
         pos = actor.position;
         x = pos.x;
         y = pos.y;
-        dst = new Rect(x,y,x+w,y+h);
+        dst.left = x; dst.top = y; dst.right = x+w; dst.bottom = y+h;
         canvas.drawBitmap(bitmap, null, dst, null);
     }
 }

@@ -22,7 +22,6 @@ public class ObjectCountIndicator implements IDrawer {
         p.setSubpixelText(true);
         p.setFilterBitmap(true); 
         p.setTextSize(18);
-
     }
     
 }

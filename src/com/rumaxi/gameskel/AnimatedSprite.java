@@ -3,7 +3,9 @@ package com.rumaxi.gameskel;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Rect;
-import android.util.Log;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
+
 
 public class AnimatedSprite implements ISprite {
     private int frames;
@@ -35,6 +37,7 @@ public class AnimatedSprite implements ISprite {
     }
 
     public Bitmap getSprite() {
+        frameCanvas.drawColor(0, PorterDuff.Mode.CLEAR);
         if (currentFrame >= frames ) { currentFrame = 0; }
         //frame = Bitmap.createBitmap(bitmap,currentFrame*frameWidth,0,frameWidth,frameHeight);
         src.left = currentFrame*frameWidth;

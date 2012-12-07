@@ -27,6 +27,6 @@ public class Sprites {
     
     Sprites () {
         bmfOpt = new BitmapFactory.Options();
-        bmfOpt.inScaled = false;        
+        bmfOpt.inScaled = false;      
     }
 }

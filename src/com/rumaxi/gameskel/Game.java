@@ -2,6 +2,7 @@ package com.rumaxi.gameskel;
 
 import android.content.res.Resources;
 import android.graphics.Canvas;
+import android.os.Debug;
 import android.util.Log;
 import android.view.SurfaceHolder;
 import java.util.logging.Level;
@@ -20,7 +21,7 @@ public class Game extends AbstractGame implements Runnable {
         this.sh = gv.getHolder();
         this.core = new Core (res);
         scene = new Scene();
-        scene.addPrerender(new ClearScreen());        
+        //scene.addPrerender(new ClearScreen());        
         
         ISprite bg = new StaticSprite (Sprites.getBackground());
         scene.addPrerender(new SceneBackground(bg));
@@ -42,14 +43,14 @@ public class Game extends AbstractGame implements Runnable {
         
         scene.addActor(duck);
         
-        scene.addPostrender(new ObjectCountIndicator(scene));
+        //scene.addPostrender(new ObjectCountIndicator(scene));
         scene.addPostrender(new FPSIndicator(this));
 
         core.setScene(scene);
         running = true;
     }
-    
-    public void tick(Canvas canvas) {
+        
+    public void tick(Canvas canvas) { 
         core.tick(canvas);
     }
 
@@ -88,16 +89,16 @@ public class Game extends AbstractGame implements Runnable {
             int sTimeDiff = (int) (currTime -sTime);          
             if (sTimeDiff >= 1000) { sTime = currTime; realFps = frames; frames = 0; }
             sh.unlockCanvasAndPost(canvas);        
-            
-/*            int runTime = (int) (currTime - startTime);
+  /*          
+            int runTime = (int) (currTime - startTime);
             int waitTime = (int)millisPerFrame - runTime;
             if (waitTime > 0) {
                 try {
                     Thread.sleep((int)waitTime);
                 } catch (InterruptedException ex) { 
                 }
-            }
-            */
+            } */
+            
         }         
     }
 

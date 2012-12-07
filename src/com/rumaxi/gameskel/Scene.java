@@ -1,7 +1,12 @@
 package com.rumaxi.gameskel;
 
 import android.graphics.Canvas;
+import android.os.Debug;
+import android.util.Log;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Stack;
 
 public class Scene {
@@ -37,6 +42,7 @@ public void addActor(Actor actor) {
     }
    
 void tick (Canvas canvas) {
+
     for (int i=0, n = movableList.size(); i<n; ++i) {
         movableList.get(i).move();
     }
@@ -48,29 +54,28 @@ void tick (Canvas canvas) {
     }  
     for (int i=0, n = postrenderList.size(); i<n; ++i) {
         postrenderList.get(i).draw(canvas);
-    }    
-    collideObjects();
-    updateObjects();
+    }   
+    collideObjects();  
+    updateObjects();  
 }  
     
 private void updateObjects() {
-        
-        
+
         for (int i=0, n = delList.size(); i<n; ++i) {
             actorList.remove(delList.get(i));
             if (delList.get(i).movable) { movableList.remove(delList.get(i)); }
             if (delList.get(i).collidable) { collidableList.remove(delList.get(i)); }
             if (delList.get(i).drawable) { drawableList.remove(delList.get(i)); }             
-        }
+        } 
         
         for (int i=0, n = addList.size(); i<n; ++i) {
             actorList.add(addList.get(i));
             if (addList.get(i).movable) { movableList.add(addList.get(i)); }
             if (addList.get(i).collidable) { collidableList.add(addList.get(i)); }
             if (addList.get(i).drawable) { drawableList.add(addList.get(i)); }             
-        }        
-        delList.clear();
-        addList.clear();
+        } 
+        delList.clear(); 
+        addList.clear(); 
     }
     
 private void collideObjects() {

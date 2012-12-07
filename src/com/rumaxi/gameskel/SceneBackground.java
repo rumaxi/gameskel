@@ -10,6 +10,7 @@ public class SceneBackground implements IDrawer {
     private Rect dst;
     private ISprite sprite;
     private Bitmap bitmap;
+    
     public void draw(Canvas canvas) {
         bitmap = sprite.getSprite();
         canvas.drawBitmap(bitmap, null, dst, null);

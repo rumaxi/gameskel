@@ -2,7 +2,6 @@ package com.rumaxi.gameskel;
 
 import android.graphics.Canvas;
 import java.util.ArrayList;
-import java.util.Stack;
 
 public class Actor {
     boolean movable;
@@ -24,17 +23,16 @@ public class Actor {
         mover.move(this);
     }
     
+    public void draw(Canvas canvas) {
+        drawer.draw(canvas, this);
+    }
+
     public void collide(Actor subject) {
         for (int i=0, n = colliders.size(); i<n; ++i) {
             if (colliders.get(i).check(subject)) { colliders.get(i).collide(this,subject);}
         } 
     }
-
-    
-    public void draw(Canvas canvas) {
-        drawer.draw(canvas, this);
-    }
-
+        
     public void setDrawer(IActorDrawer drawer) {
         drawable =    true;
         this.drawer = drawer;
