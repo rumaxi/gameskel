@@ -1,6 +1,7 @@
 package com.rumaxi.gameskel;
 
 import android.graphics.Canvas;
+import java.util.ArrayList;
 import java.util.Stack;
 
 public class Actor {
@@ -11,8 +12,8 @@ public class Actor {
     
     IMover mover               = null;
     IActorDrawer drawer        = null;
-    Stack<Collider> colliders  = new Stack<Collider>();
-    Stack<Mutator>  mutators   = new Stack<Mutator>();
+    ArrayList<Collider> colliders  = new ArrayList<Collider>();
+    ArrayList<Mutator>  mutators   = new ArrayList<Mutator>();
     
     ActorType  type;
     Position   position;
@@ -24,10 +25,11 @@ public class Actor {
     }
     
     public void collide(Actor subject) {
-        for (Collider collider: colliders) {
-            if (collider.check(subject)) { collider.collide(this,subject);} 
-        }
+        for (int i=0, n = colliders.size(); i<n; ++i) {
+            if (colliders.get(i).check(subject)) { colliders.get(i).collide(this,subject);}
+        } 
     }
+
     
     public void draw(Canvas canvas) {
         drawer.draw(canvas, this);
