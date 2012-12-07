@@ -10,7 +10,7 @@ public class ObjectCountIndicator implements IDrawer {
     private Paint p;
     
     public void draw(Canvas canvas) {
-        canvas.drawText("objects: "+scene.objectCount(), 10, 25, p);
+        canvas.drawText(String.valueOf(scene.objectCount()), 10, 25, p);
     }
     
     ObjectCountIndicator(Scene scene) {

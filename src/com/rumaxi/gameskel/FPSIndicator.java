@@ -10,7 +10,7 @@ public class FPSIndicator implements IDrawer {
     private Paint p;
     
     public void draw(Canvas canvas) {
-        canvas.drawText("fps: "+game.getFps(), 10, 50, p);
+        canvas.drawText(String.valueOf(game.getFps()), 10, 50, p);
     }
     
     FPSIndicator(Game game) {

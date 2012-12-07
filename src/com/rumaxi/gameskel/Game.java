@@ -12,7 +12,6 @@ public class Game extends AbstractGame implements Runnable {
     Scene scene;
     private Boolean running;
     private SurfaceHolder sh;
-    private long startTime, runTime, waitTime, secPerFrame;
     private static Integer FPS = Settings.FPS; 
     private int realFps;
     
@@ -76,28 +75,29 @@ public class Game extends AbstractGame implements Runnable {
     public void run() {
         Canvas canvas;
         int frames = 0;
+        int millisPerFrame= 1000/FPS;
         long sTime = System.currentTimeMillis();
         while (running) { 
-            startTime = System.currentTimeMillis();
+            long startTime = System.currentTimeMillis();
             
             canvas = sh.lockCanvas();
             tick(canvas);
             frames++;
 
             long currTime = System.currentTimeMillis();
-            long sTimeDiff = currTime -sTime;          
+            int sTimeDiff = (int) (currTime -sTime);          
             if (sTimeDiff >= 1000) { sTime = currTime; realFps = frames; frames = 0; }
             sh.unlockCanvasAndPost(canvas);        
             
-            runTime = currTime - startTime;
-            waitTime = secPerFrame - runTime;
+/*            int runTime = (int) (currTime - startTime);
+            int waitTime = (int)millisPerFrame - runTime;
             if (waitTime > 0) {
                 try {
-                    Thread.sleep(waitTime);
+                    Thread.sleep((int)waitTime);
                 } catch (InterruptedException ex) { 
                 }
             }
-            
+            */
         }         
     }
 
